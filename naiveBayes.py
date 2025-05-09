@@ -21,12 +21,16 @@ def load_dataset(digit_file, label_file, fraction=1.0):
     cutoff = int(min(len(x), len(y)) * fraction)
     return x[:cutoff], y[:cutoff]
 
+validation_digit_images, validation_digit_labels = load_dataset("digitdata/validationimages", "digitdata/validationlabels")
+test_digit_images, test_digit_labels = load_dataset("digitdata/testimages", "digitdata/testlabels")
+
 start = 0.1
-end = 1.0
+end = 1
 step = 0.1
 x = start
 while x < end:
     training_digit_images, training_digit_labels = load_dataset("digitdata/trainingimages", "digitdata/traininglabels", x)
+    # print(len(training_digit_images), len(training_digit_labels))
 
     # Train Naive Bayes
     class_counts = Counter(training_digit_labels)
@@ -62,11 +66,12 @@ while x < end:
 
     # Evaluate
     correct = 0
-    test_digit_images, test_digit_labels = load_dataset("digitdata/testimages", "digitdata/testlabels")
-    for features, label in zip(test_digit_images, test_digit_labels):
+    for num, (features, label) in enumerate(zip(test_digit_images, test_digit_labels)):
         prediction = predict(features)
         if prediction == label:
             correct += 1
+        # else:
+        #     print(f"[{num}] Misclassified: Predicted {prediction}, Actual {label}")
 
     accuracy = correct / len(test_digit_labels)
     print(f"Percentage of Training Data used: {x * 100}%")

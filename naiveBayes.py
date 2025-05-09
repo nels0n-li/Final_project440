@@ -1,4 +1,6 @@
+''' Naive Bayes with incremented training and Laplace smoothing '''
 import math
+import time
 from collections import defaultdict, Counter
 
 num_features = 784  # 28 x 28
@@ -29,6 +31,7 @@ end = 1
 step = 0.1
 x = start
 while x < end:
+    start_time = time.time()
     training_digit_images, training_digit_labels = load_dataset("digitdata/trainingimages", "digitdata/traininglabels", x)
     # print(len(training_digit_images), len(training_digit_labels))
 
@@ -74,6 +77,10 @@ while x < end:
         #     print(f"[{num}] Misclassified: Predicted {prediction}, Actual {label}")
 
     accuracy = correct / len(test_digit_labels)
-    print(f"Percentage of Training Data used: {x * 100}%")
-    print(f"Accuracy: {accuracy:.2%}\n")
+    print(f"Percentage of Training Data used: {round(x * 100)}%")
+    print(f"Accuracy: {accuracy:.2%}")
+    end_time = time.time()
+    training_time = end_time - start_time
+    print(f"Training time: {training_time:.2f} seconds\n")
+
     x += step

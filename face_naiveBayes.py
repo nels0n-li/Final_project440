@@ -72,18 +72,23 @@ start = 0.1
 end = 1
 step = 0.1
 z = start
-while z < end:
-    start_time = time.time()
+outfile_name = "results/face_naiveBayes_results.txt"
+print(f"Writing to: {outfile_name}")
+with open(outfile_name, "w") as outfile:
+    while z < end:
+        start_time = time.time()
 
-    training_face_images, training_face_labels, number_images = load_faces("facedata/facedatatrain", "facedata/facedatatrainlabels", z)
-    priors, likelihoods = train_naive_bayes(training_face_images, training_face_labels, 1)
-    accuracy = evaluate(priors, likelihoods, test_face_images, test_face_labels)
+        training_face_images, training_face_labels, number_images = load_faces("facedata/facedatatrain", "facedata/facedatatrainlabels", z)
+        priors, likelihoods = train_naive_bayes(training_face_images, training_face_labels, 1)
+        accuracy = evaluate(priors, likelihoods, test_face_images, test_face_labels)
 
-    print(f"Percentage of Training Data used: {round(z * 100)}% ({number_images} images)")
-    print(f"Accuracy: {accuracy:.2%}")
+        print(f"Percentage of Training Data used: {round(z * 100)}% ({number_images} images)", file=outfile)
+        print(f"Accuracy: {accuracy:.2%}", file=outfile)
 
-    end_time = time.time()
-    training_time = end_time - start_time
-    print(f"Training time: {training_time:.2f} seconds\n")
+        end_time = time.time()
+        training_time = end_time - start_time
+        print(f"Training time: {training_time:.2f} seconds\n", file=outfile)
 
-    z += step
+        z += step
+
+print("Done!")

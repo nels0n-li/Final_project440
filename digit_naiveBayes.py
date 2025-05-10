@@ -33,57 +33,62 @@ start = 0.1
 end = 1
 step = 0.1
 x = start
-while x < end:
-    start_time = time.time()
-    training_digit_images, training_digit_labels, number_digits = load_dataset("digitdata/trainingimages", "digitdata/traininglabels", x)
-    # print(len(training_digit_images), len(training_digit_labels))
+outfile_name = "results/digit_naiveBayes_results.txt"
+print(f"Writing to: {outfile_name}")
+with open(outfile_name, "w") as outfile:
+    while x < end:
+        start_time = time.time()
+        training_digit_images, training_digit_labels, number_digits = load_dataset("digitdata/trainingimages", "digitdata/traininglabels", x)
+        # print(len(training_digit_images), len(training_digit_labels))
 
-    # Train Naive Bayes
-    class_counts = Counter(training_digit_labels)
-    total_samples = len(training_digit_labels)
+        # Train Naive Bayes
+        class_counts = Counter(training_digit_labels)
+        total_samples = len(training_digit_labels)
 
-    # Prior probabilities
-    priors = {label: class_counts[label] / total_samples for label in class_counts}
+        # Prior probabilities
+        priors = {label: class_counts[label] / total_samples for label in class_counts}
 
-    # Likelihoods: P(feature_i = value | class)
-    # Structure: likelihoods[class][feature_index][feature_value]
-    likelihoods = defaultdict(lambda: [Counter() for _ in range(num_features)])
+        # Likelihoods: P(feature_i = value | class)
+        # Structure: likelihoods[class][feature_index][feature_value]
+        likelihoods = defaultdict(lambda: [Counter() for _ in range(num_features)])
 
-    for features, label in zip(training_digit_images, training_digit_labels):
-        for i, val in enumerate(features):
-            likelihoods[label][i][val] += 1
-
-    # Convert counts to probabilities with Laplace smoothing
-    for label in likelihoods:
-        for i in range(num_features):
-            total = sum(likelihoods[label][i].values()) + num_feature_vals
-            for val in range(num_feature_vals):
-                likelihoods[label][i][val] = (likelihoods[label][i][val] + 1) / total
-
-    # Predition
-    def predict(features):
-        log_probs = {}
-        for label in priors:
-            log_prob = math.log(priors[label])
+        for features, label in zip(training_digit_images, training_digit_labels):
             for i, val in enumerate(features):
-                log_prob += math.log(likelihoods[label][i][val])
-            log_probs[label] = log_prob
-        return max(log_probs, key=log_probs.get)
+                likelihoods[label][i][val] += 1
 
-    # Evaluate
-    correct = 0
-    for num, (features, label) in enumerate(zip(test_digit_images, test_digit_labels)):
-        prediction = predict(features)
-        if prediction == label:
-            correct += 1
-        # else:
-        #     print(f"[{num}] Misclassified: Predicted {prediction}, Actual {label}")
+        # Convert counts to probabilities with Laplace smoothing
+        for label in likelihoods:
+            for i in range(num_features):
+                total = sum(likelihoods[label][i].values()) + num_feature_vals
+                for val in range(num_feature_vals):
+                    likelihoods[label][i][val] = (likelihoods[label][i][val] + 1) / total
 
-    accuracy = correct / len(test_digit_labels)
-    print(f"Percentage of Training Data used: {round(x * 100)}% ({number_digits} digits)")
-    print(f"Accuracy: {accuracy:.2%}")
-    end_time = time.time()
-    training_time = end_time - start_time
-    print(f"Training time: {training_time:.2f} seconds\n")
+        # Predition
+        def predict(features):
+            log_probs = {}
+            for label in priors:
+                log_prob = math.log(priors[label])
+                for i, val in enumerate(features):
+                    log_prob += math.log(likelihoods[label][i][val])
+                log_probs[label] = log_prob
+            return max(log_probs, key=log_probs.get)
 
-    x += step
+        # Evaluate
+        correct = 0
+        for num, (features, label) in enumerate(zip(test_digit_images, test_digit_labels)):
+            prediction = predict(features)
+            if prediction == label:
+                correct += 1
+            # else:
+            #     print(f"[{num}] Misclassified: Predicted {prediction}, Actual {label}")
+
+        accuracy = correct / len(test_digit_labels)
+        print(f"Percentage of Training Data used: {round(x * 100)}% ({number_digits} digits)", file=outfile)
+        print(f"\tAccuracy: {accuracy:.2%}", file=outfile)
+        end_time = time.time()
+        training_time = end_time - start_time
+        print(f"\tTraining time: {training_time:.2f} seconds\n", file=outfile)
+
+        x += step
+
+print("Done!")

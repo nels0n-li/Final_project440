@@ -1,40 +1,40 @@
 Percentage of Training Data used: 10% (500 digits)
 	Accuracy: 66.30%
-	Training time: 0.86 seconds
+	Training time: 2.02 seconds
 
 Percentage of Training Data used: 20% (1000 digits)
 	Accuracy: 71.30%
-	Training time: 0.90 seconds
+	Training time: 2.24 seconds
 
 Percentage of Training Data used: 30% (1500 digits)
 	Accuracy: 72.80%
-	Training time: 0.96 seconds
+	Training time: 2.31 seconds
 
 Percentage of Training Data used: 40% (2000 digits)
 	Accuracy: 73.80%
-	Training time: 1.01 seconds
+	Training time: 2.33 seconds
 
 Percentage of Training Data used: 50% (2500 digits)
 	Accuracy: 75.80%
-	Training time: 1.05 seconds
+	Training time: 2.53 seconds
 
 Percentage of Training Data used: 60% (3000 digits)
 	Accuracy: 75.60%
-	Training time: 1.11 seconds
+	Training time: 2.74 seconds
 
 Percentage of Training Data used: 70% (3500 digits)
 	Accuracy: 76.40%
-	Training time: 1.16 seconds
+	Training time: 2.78 seconds
 
 Percentage of Training Data used: 80% (3999 digits)
 	Accuracy: 76.70%
-	Training time: 1.23 seconds
+	Training time: 2.91 seconds
 
 Percentage of Training Data used: 90% (4500 digits)
 	Accuracy: 77.40%
-	Training time: 1.29 seconds
+	Training time: 2.83 seconds
 
 Percentage of Training Data used: 100% (4999 digits)
 	Accuracy: 77.20%
-	Training time: 1.35 seconds
+	Training time: 3.33 seconds
 

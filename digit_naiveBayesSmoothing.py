@@ -75,22 +75,27 @@ k_values = [0.0001, 0.001, 0.01, 0.1, 0.5, 1.0, 2.0]
 best_k = None
 best_validation_accuracy = 0
 
-for k in k_values:
-    print(f"Training with k = {k}")
-    start = time.time()
-    priors, likelihoods = train_naive_bayes(training_digit_images, training_digit_labels, k)
-    train_time = time.time() - start
+outfile_name = "results/digit_naiveBayesSmoothing_results.txt"
+print(f"Writing to: {outfile_name}")
+with open(outfile_name, "w") as outfile:
+    for k in k_values:
+        print(f"Training with k = {k}", file=outfile)
+        start = time.time()
+        priors, likelihoods = train_naive_bayes(training_digit_images, training_digit_labels, k)
+        train_time = time.time() - start
 
-    validation_accuracy = evaluate(priors, likelihoods, validation_digit_images, validation_digit_labels)
-    print(f"\tValidation Accuracy: {validation_accuracy:.2%}")
-    print(f"\tTraining Time: {train_time:.2f} seconds\n")
+        validation_accuracy = evaluate(priors, likelihoods, validation_digit_images, validation_digit_labels)
+        print(f"\tValidation Accuracy: {validation_accuracy:.2%}", file=outfile)
+        print(f"\tTraining Time: {train_time:.2f} seconds\n", file=outfile)
 
-    if validation_accuracy > best_validation_accuracy:
-        best_validation_accuracy = validation_accuracy
-        best_k = k
+        if validation_accuracy > best_validation_accuracy:
+            best_validation_accuracy = validation_accuracy
+            best_k = k
 
-print(f"Best k = {best_k} with Validation Accuracy = {best_validation_accuracy:.2%}")
+    print(f"Best k = {best_k} with Validation Accuracy = {best_validation_accuracy:.2%}", file=outfile)
 
-priors, likelihoods, train_naive_bayes(training_digit_images, training_digit_labels, best_k)
-test_accuracy = evaluate(priors, likelihoods, test_digit_images, test_digit_labels)
-print(f"Test Accuracy with k = {best_k}: {test_accuracy:.2%}")
+    priors, likelihoods = train_naive_bayes(training_digit_images, training_digit_labels, best_k)
+    test_accuracy = evaluate(priors, likelihoods, test_digit_images, test_digit_labels)
+    print(f"Test Accuracy with k = {best_k}: {test_accuracy:.2%}", file=outfile)
+
+print("Done!")

@@ -6,7 +6,7 @@ from collections import defaultdict, Counter
 num_features = 784  # 28 x 28
 num_feature_vals = 3
 
-def load_dataset(digit_file, label_file, fraction=1.0):
+def load_dataset(digit_file, label_file, fraction=1):
     def encode_digit(lines):
         char_map = {' ': 0, '+': 1, '#': 2}
         return [char_map[char] for line in lines for char in line.rstrip('\n')]
@@ -21,6 +21,9 @@ def load_dataset(digit_file, label_file, fraction=1.0):
     assert len(x) == len(y), f"Mismatched input: {len(x)} images vs {len(y)} labels"
 
     cutoff = int(min(len(x), len(y)) * fraction)
+
+    if fraction != 1:
+        return x[:cutoff], y[:cutoff], len(y[:cutoff])
     return x[:cutoff], y[:cutoff]
 
 validation_digit_images, validation_digit_labels = load_dataset("digitdata/validationimages", "digitdata/validationlabels")
@@ -32,7 +35,7 @@ step = 0.1
 x = start
 while x < end:
     start_time = time.time()
-    training_digit_images, training_digit_labels = load_dataset("digitdata/trainingimages", "digitdata/traininglabels", x)
+    training_digit_images, training_digit_labels, number_digits = load_dataset("digitdata/trainingimages", "digitdata/traininglabels", x)
     # print(len(training_digit_images), len(training_digit_labels))
 
     # Train Naive Bayes
@@ -77,7 +80,7 @@ while x < end:
         #     print(f"[{num}] Misclassified: Predicted {prediction}, Actual {label}")
 
     accuracy = correct / len(test_digit_labels)
-    print(f"Percentage of Training Data used: {round(x * 100)}%")
+    print(f"Percentage of Training Data used: {round(x * 100)}% ({number_digits} digits)")
     print(f"Accuracy: {accuracy:.2%}")
     end_time = time.time()
     training_time = end_time - start_time

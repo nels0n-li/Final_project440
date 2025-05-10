@@ -25,8 +25,8 @@ def load_dataset(digit_file, label_file, fraction=1.0):
 
 # Train Naive Bayes
 def train_naive_bayes(images, labels, k):
-    class_counts = Counter(training_digit_labels)
-    total_samples = len(training_digit_labels)
+    class_counts = Counter(labels)
+    total_samples = len(labels)
     priors = {label: class_counts[label] / total_samples for label in class_counts}
 
     likelihoods = defaultdict(lambda: [Counter() for _ in range(num_features)])
@@ -53,6 +53,7 @@ def predict(priors, likelihoods, features):
         for i, val in enumerate(features):
             log_prob += math.log(likelihoods[label][i][val])
         log_probs[label] = log_prob
+        
     return max(log_probs, key=log_probs.get)
 
 # Evaluate

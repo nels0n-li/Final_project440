@@ -1,0 +1,40 @@
+Percentage of Training Data used: 10% (45 images)
+Accuracy: 76.00%
+Training time: 0.18 seconds
+
+Percentage of Training Data used: 20% (90 images)
+Accuracy: 80.00%
+Training time: 0.20 seconds
+
+Percentage of Training Data used: 30% (135 images)
+Accuracy: 84.67%
+Training time: 0.21 seconds
+
+Percentage of Training Data used: 40% (180 images)
+Accuracy: 89.33%
+Training time: 0.24 seconds
+
+Percentage of Training Data used: 50% (225 images)
+Accuracy: 87.33%
+Training time: 0.26 seconds
+
+Percentage of Training Data used: 60% (270 images)
+Accuracy: 88.00%
+Training time: 0.29 seconds
+
+Percentage of Training Data used: 70% (315 images)
+Accuracy: 89.33%
+Training time: 0.31 seconds
+
+Percentage of Training Data used: 80% (360 images)
+Accuracy: 88.67%
+Training time: 0.33 seconds
+
+Percentage of Training Data used: 90% (405 images)
+Accuracy: 89.33%
+Training time: 0.35 seconds
+
+Percentage of Training Data used: 100% (450 images)
+Accuracy: 90.67%
+Training time: 0.37 seconds
+

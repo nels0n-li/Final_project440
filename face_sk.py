@@ -18,11 +18,11 @@ def load_labels(label_path):
     with open(label_path, 'r') as f:
         return np.array([int(line.strip()) for line in f.readlines()])
 
-# Load training data
+# training data
 X_train = load_faces(r"facedata\facedatatrain")
 y_train = load_labels(r"facedata\facedatatrainlabels")
 
-# Load testing data
+# testing data
 X_test = load_faces(r"facedata\facedatatest")
 y_test = load_labels(r"facedata\facedatatestlabels")
 

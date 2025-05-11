@@ -1,0 +1,12 @@
+Epoch 1/10, Loss: 11.8985, Time: 0.69 sec
+Epoch 2/10, Loss: 9.6371, Time: 0.68 sec
+Epoch 3/10, Loss: 6.9667, Time: 0.67 sec
+Epoch 4/10, Loss: 3.1983, Time: 0.66 sec
+Epoch 5/10, Loss: 1.2651, Time: 0.66 sec
+Epoch 6/10, Loss: 0.6975, Time: 0.66 sec
+Epoch 7/10, Loss: 0.3483, Time: 0.67 sec
+Epoch 8/10, Loss: 0.3246, Time: 0.66 sec
+Epoch 9/10, Loss: 0.1420, Time: 0.66 sec
+Epoch 10/10, Loss: 0.0664, Time: 0.66 sec
+Total Training Time: 6.68 sec
+Test Accuracy: 0.9867

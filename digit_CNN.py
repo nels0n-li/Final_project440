@@ -9,7 +9,7 @@ height = 28
 width = 28
 size = 32
 epochs = 10
-output = "results/digit_cnn_results.txt"
+output = "results/digitcnn_results.txt"
 
 char_to_pixel = {' ': 0, '+': 1, '#': 2}
 

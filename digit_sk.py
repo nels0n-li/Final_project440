@@ -44,10 +44,12 @@ X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
 # === 7. Train Classifier ===
-clf = SVC(kernel='linear', C=1.0)
+C_value = 10 # Regularization parameter
+clf = SVC(kernel='linear', C=C_value)
 clf.fit(X_train_scaled, y_train)
 
 # === 8. Predict and Evaluate ===
 y_pred = clf.predict(X_test_scaled)
 test_accuracy = accuracy_score(y_test, y_pred)
+print(f"Regularization parameter: {C_value}")
 print(f"Test accuracy: {test_accuracy:.4f}")

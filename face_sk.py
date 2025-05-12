@@ -32,10 +32,12 @@ X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
 # Train model
-clf = SVC(kernel='linear', C=1.0)
+C_value = 1e5
+clf = SVC(kernel='linear', C=C_value)
 clf.fit(X_train_scaled, y_train)
 
 # Evaluate on test data
 y_pred = clf.predict(X_test_scaled)
 accuracy = accuracy_score(y_test, y_pred)
+print(f"Regularization parameter: {C_value}")
 print(f"Test accuracy: {accuracy:.4f}")

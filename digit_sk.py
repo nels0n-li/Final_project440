@@ -3,7 +3,6 @@ from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import StandardScaler
 
-# === 1. Define File Paths ===
 train_image_path = r"digitdata\trainingimages"
 train_label_path = r"digitdata\traininglabels"
 test_image_path = r"digitdata\testimages"      
@@ -13,7 +12,6 @@ image_height, image_width = 28, 28
 lines_per_image = image_height
 char_to_pixel = {' ': 0, '+': 1, '#': 2}
 
-# === 2. Function to Load and Convert Images ===
 def load_images(path):
     with open(path, "r") as f:
         lines = f.read().splitlines()
@@ -25,30 +23,29 @@ def load_images(path):
         images.append(np.array(image).flatten())
     return np.array(images)
 
-# === 3. Function to Load Labels ===
+
 def load_labels(path):
     with open(path, "r") as f:
         return np.array([int(line.strip()) for line in f.readlines()])
 
-# === 4. Load Training Data ===
+
 X_train = load_images(train_image_path)
 y_train = load_labels(train_label_path)
 
-# === 5. Load Test Data ===
 X_test = load_images(test_image_path)
 y_test = load_labels(test_label_path)
 
-# === 6. Normalize ===
+
 scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
-# === 7. Train Classifier ===
+
 C_value = 10 # Regularization parameter
 clf = SVC(kernel='linear', C=C_value)
 clf.fit(X_train_scaled, y_train)
 
-# === 8. Predict and Evaluate ===
+
 y_pred = clf.predict(X_test_scaled)
 test_accuracy = accuracy_score(y_test, y_pred)
 print(f"Regularization parameter: {C_value}")

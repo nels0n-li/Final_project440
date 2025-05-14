@@ -1,30 +1,30 @@
 Training with k = 0.0001
 	Validation Accuracy: 82.90%
-	Training Time: 0.44 seconds
+	Training Time: 0.47 seconds
 
 Training with k = 0.001
 	Validation Accuracy: 82.40%
-	Training Time: 0.42 seconds
+	Training Time: 0.46 seconds
 
 Training with k = 0.01
 	Validation Accuracy: 82.20%
-	Training Time: 0.41 seconds
+	Training Time: 0.47 seconds
 
 Training with k = 0.1
 	Validation Accuracy: 81.90%
-	Training Time: 0.42 seconds
+	Training Time: 0.47 seconds
 
 Training with k = 0.5
 	Validation Accuracy: 81.80%
-	Training Time: 0.41 seconds
+	Training Time: 0.46 seconds
 
 Training with k = 1.0
 	Validation Accuracy: 81.50%
-	Training Time: 0.41 seconds
+	Training Time: 0.46 seconds
 
 Training with k = 2.0
 	Validation Accuracy: 81.10%
-	Training Time: 0.41 seconds
+	Training Time: 0.45 seconds
 
 Best k = 0.0001 with Validation Accuracy = 82.90%
 Test Accuracy with k = 0.0001: 77.90%

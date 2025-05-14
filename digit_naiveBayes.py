@@ -1,6 +1,7 @@
 ''' Naive Bayes with incremented training and Laplace smoothing '''
 import math
 import time
+import matplotlib.pyplot as plt
 from collections import defaultdict, Counter
 
 num_features = 784  # 28 x 28
@@ -33,6 +34,7 @@ start = 0.1
 end = 1
 step = 0.1
 x = start
+training_accuracies = []
 outfile_name = "results/digit_naiveBayes_results.txt"
 print(f"Writing to: {outfile_name}")
 with open(outfile_name, "w") as outfile:
@@ -89,6 +91,23 @@ with open(outfile_name, "w") as outfile:
         training_time = end_time - start_time
         print(f"\tTraining time: {training_time:.2f} seconds\n", file=outfile)
 
+        training_accuracies.append(accuracy * 100)
+        # print(training_accuracies)
+
         x += step
 
 print("Done!")
+training_percents = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+
+plt.figure(figsize=(8, 4))
+plt.plot(training_percents, training_accuracies, marker='o', color="maroon")
+
+plt.title("Accuracy vs. Training Data Used (Digit Images)")
+plt.xlabel("Training Data Used (%)")
+plt.ylabel("Accuracy (%)")
+
+plt.grid(True)
+plt.xticks(training_percents)  # Ensure x-axis ticks match your data
+# plt.ylim(0, 100)
+
+plt.show()

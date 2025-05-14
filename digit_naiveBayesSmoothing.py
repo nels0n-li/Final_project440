@@ -1,6 +1,7 @@
 ''' Naive Bayes with validation for better smoothing '''
 import math
 import time
+import matplotlib.pyplot as plt
 from collections import defaultdict, Counter
 
 num_features = 784  # 28 x 28
@@ -74,7 +75,7 @@ test_digit_images, test_digit_labels = load_dataset("digitdata/testimages", "dig
 k_values = [0.0001, 0.001, 0.01, 0.1, 0.5, 1.0, 2.0]
 best_k = None
 best_validation_accuracy = 0
-
+validation_accuraies = []
 outfile_name = "results/digit_naiveBayesSmoothing_results.txt"
 print(f"Writing to: {outfile_name}")
 with open(outfile_name, "w") as outfile:
@@ -92,6 +93,9 @@ with open(outfile_name, "w") as outfile:
             best_validation_accuracy = validation_accuracy
             best_k = k
 
+        validation_accuraies.append(validation_accuracy * 100)
+
+
     print(f"Best k = {best_k} with Validation Accuracy = {best_validation_accuracy:.2%}", file=outfile)
 
     priors, likelihoods = train_naive_bayes(training_digit_images, training_digit_labels, best_k)
@@ -99,3 +103,17 @@ with open(outfile_name, "w") as outfile:
     print(f"Test Accuracy with k = {best_k}: {test_accuracy:.2%}", file=outfile)
 
 print("Done!")
+
+positions = list(range(len(k_values)))
+
+plt.figure(figsize=(8, 4))
+plt.plot(positions, validation_accuraies, marker='o', color="maroon")
+
+plt.title("Validation Accuracy vs. k-Value Used (Digit Images)")
+plt.xlabel("k-Value Used")
+plt.ylabel("Validation Accuracy (%)")
+
+plt.xticks(positions, [str(k) for k in k_values])
+plt.grid(True)
+
+plt.show()

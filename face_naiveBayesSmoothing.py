@@ -1,5 +1,6 @@
 import math
 import time
+import matplotlib.pyplot as plt
 from collections import defaultdict, Counter
 
 num_features = 70*60
@@ -71,7 +72,7 @@ test_face_images, test_face_labels = load_faces("facedata/facedatatest", "faceda
 k_values = [0.0001, 0.001, 0.01, 0.1, 0.5, 1.0, 2.0]
 best_k = None
 best_validation_accuracy = 0
-
+validation_accuraies = []
 outfile_name = "results/face_naiveBayesSmoothing_results.txt"
 print(f"Writing to: {outfile_name}")
 with open(outfile_name, "w") as outfile:
@@ -88,6 +89,8 @@ with open(outfile_name, "w") as outfile:
         if validation_accuracy > best_validation_accuracy:
             best_validation_accuracy = validation_accuracy
             best_k = k
+
+        validation_accuraies.append(validation_accuracy * 100)
         
     print(f"Best k = {best_k} with Validation Accuracy = {best_validation_accuracy:.2%}", file=outfile)
 
@@ -96,3 +99,17 @@ with open(outfile_name, "w") as outfile:
     print(f"Test Accuracy with k = {best_k}: {test_accuracy:.2%}", file=outfile)
 
 print("Done!")
+
+positions = list(range(len(k_values)))
+
+plt.figure(figsize=(8, 4))
+plt.plot(positions, validation_accuraies, marker='o', color="maroon")
+
+plt.title("Validation Accuracy vs. k-Value Used (Face Images)")
+plt.xlabel("k-Value Used")
+plt.ylabel("Validation Accuracy (%)")
+
+plt.xticks(positions, [str(k) for k in k_values])
+plt.grid(True)
+
+plt.show()
